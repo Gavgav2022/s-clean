@@ -1,0 +1,56 @@
+html,
+body {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    @extend  %hind_madurai-400;
+    color: $black;
+    font-size: 20px;
+    line-height: 160%;
+    background-color: $back;
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 1;
+}
+
+a:hover {
+    color: inherit;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.position-section {
+    display: block;
+    margin-bottom: 120px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+.lock {
+    overflow: hidden
+}
