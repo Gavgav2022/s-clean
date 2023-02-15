@@ -1,7 +1,7 @@
-@import 'vars';
-@import 'fonts';
-@import 'libs';
 @import 'reset';
+@import 'fonts';
+@import 'vars';
+@import 'libs';
 @import 'global';
 
 .container {
@@ -47,6 +47,96 @@ main {
             background-position: center;
             background-size: contain;
         }
+
+        &__content {
+            left: auto;
+            right: 500px;
+            opacity: 0;
+            z-index: 10;
+            min-width: 416px;
+            padding: 16px;
+            background-color: rgba(255, 255, 255, 0.75);
+            box-shadow: 24px 32px 56px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(24px);
+            border-radius: 8px;
+            transition: opacity .5s linear;
+
+            @include r($s) {
+                min-width: 300px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            &--active {
+                right: auto;
+                left: -60px;
+                opacity: 1;
+            }
+        }
+
+        &__setting {
+            position: absolute;
+            left: -500px;
+            opacity: 0;
+            bottom: 50px;
+            min-width: 416px;
+            padding: 16px;
+            pointer-events: none;
+            background-color: rgba(255, 255, 255, 0.75);
+            box-shadow: 24px 32px 56px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(24px);
+            border-radius: 8px;
+            transition: opacity .5s linear;
+
+            @include r($s) {
+                min-width: 300px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            &--active {
+                left: -60px;
+                opacity: 1;
+                z-index: 10;
+                pointer-events: visible;
+            }
+        }
+
+        &__title {
+            padding-left: 48px;
+            @extend %montserrat-700;
+            background-image: url('../images/sprite.svg#coc');
+            background-position: -20px;
+            background-repeat: no-repeat;
+        }
+
+        &__text {
+            margin-bottom: 26px;
+        }
+
+        &__btn-set {
+            padding: 8px 48px;
+            border: 2px solid $blue;
+            color: $blue;
+            @extend %montserrat-700;
+            border-radius: 32px;
+            background-color: $white;
+        }
+
+        &__btn-acc {
+            padding: 8px 48px;
+            border: none;
+            outline: none;
+            color: $white;
+            @extend %montserrat-700;
+            border-radius: 32px;
+            background-color: $blue;
+            box-shadow: 4px 4px 16px rgba(0, 117, 255, 0.35);
+        }
+
+
     }
 
     .page-up {
@@ -66,11 +156,13 @@ main {
             border-radius: 50%;
             background-repeat: no-repeat;
             background-position: center;
-            background-size: contain;
+            background-size: 30px;
 
             &:hover {
+                box-shadow: 24px 32px 56px rgba(0, 117, 255, 0.25);
+                backdrop-filter: blur(24px);
+
                 &::after {
-                    box-shadow: 24px 32px 56px rgba(0, 117, 255, 0.25);
                     backdrop-filter: blur(24px);
                     filter: invert(31%) sepia(43%) saturate(5192%) hue-rotate(203deg) brightness(102%) contrast(107%);
                 }
@@ -89,6 +181,7 @@ main {
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: contain;
+                transition: box-shadow .3s linear, filter .3s linear, backdrop-filter .3s linear;
             }
 
         }
@@ -96,10 +189,19 @@ main {
 }
 
 .header {
+    position: fixed;
     background-color: $white;
+    z-index: 11;
 
     &__inner {
+        display: flex;
+        justify-content: space-between;
         min-height: 132px;
+
+        @include r($m) {
+            min-height: fit-content;
+        }
+
     }
 
     &__btn {
@@ -109,61 +211,159 @@ main {
         line-height: 200%;
         color: $blue;
         background-color: transparent;
-        border: 2px solid $blue;
+        border: 4px solid transparent;
+        outline: 2px solid $blue;
         border-radius: 32px;
-        transition: filter .3s linear, border .3s linear, box-shadow .3s linear;
+        transition: all .3s linear;
+
+        @include r($m) {
+            display: none;
+            outline: 4px solid transparent;
+            border: 4px solid $blue;
+        }
 
         &:focus {
-            border: 4px solid #0075FF;
+            outline: 0px;
             filter: drop-shadow(8px 8px 16px rgba(0, 117, 255, 0.5));
         }
 
         &:hover {
-            border: 4px solid #0D7CFF;
+            outline: 4px solid transparent;
+            border: 4px solid $blue;
             filter: drop-shadow(8px 8px 32px rgba(0, 117, 255, 0.5));
         }
 
         &:active {
+            outline: 4px solid #0D7CFF;
             box-shadow: 4px 4px 16px rgba(0, 117, 255, 0.35);
         }
+
+        @include r($xxl) {
+            padding: 8px 16px;
+        }
+    }
+
+    .logo {
+        &__img {
+            display: block;
+            max-width: 192px;
+            width: 100%;
+            padding-bottom: 15px;
+        }
+
+        @include r($xxl) {
+            max-width: 134px;
+        }
+    }
+
+    .burger-wrapper {
+        padding: 21px 15px;
+        height: fit-content;
+        box-shadow: 0px 8px 48px rgba(0, 0, 0, 0.25);
+        border-radius: 16px;
+        display: none;
+
+        @include r($xl) {
+            z-index: 7;
+            display: flex;
+        }
+    }
+
+    .burger {
+        @include burger; //указываем директиву @include и название нашего миксина "burger"
+        border: none;
+        background-color: transparent;
 
 
     }
 }
 
+
 .menu {
     &__list {
-        @extend %montserrat-700;
+        display: flex;
+        gap: 16px;
+        @extend %montserrat-600;
         font-size: 20px;
         line-height: 200%;
-        gap: 12px;
+        min-width: 711px;
+
+        @include r($xxl) {
+            gap: 0;
+        }
+
+        @include r($xl) {
+            flex-direction: column;
+            align-items: start;
+            gap: 16px;
+        }
+    }
+
+    &__link {
+        display: block;
+        padding: 8px;
     }
 
     &__item {
-        padding: 8px 10px;
+        position: relative;
         border-radius: 8px;
+        transition: color .3s linear, box-shadow .3s linear, background-color .3s linear;
+
+        @include r($xl) {
+            width: 100vw;
+        }
 
         &--active {
             color: $blue;
         }
 
+        .menu__sub-item {
+            position: absolute;
+            transform: scale(0);
+            display: flex;
+            flex-direction: column;
+            width: max-content;
+            top: 0;
+            font-size: 16px;
+            line-height: 250%;
+            gap: 32px;
+            pointer-events: none;
+            color: transparent;
+            @extend %montserrat-600;
+            left: 50%;
+            padding: 40px 27px;
+            border-radius: 50%;
+            transition: all .3s linear;
+        }
+
         &:hover {
             color: $blue;
             background-color: rgba(255, 255, 255, 0.75);
-            box-shadow: 5px 2px 26px rgba(0, 0, 0, 0.15);
+            box-shadow: 5px 2px 26px 8px rgba(0, 0, 0, 0.15);
 
             .menu__sub-item {
-                display: flex;
-                flex-direction: column;
-                gap: 32px;
+                top: 80px;
+                transform: scaleY(1);
                 color: $black-second;
-                @extend %montserrat-600;
-                font-size: 16px;
-                line-height: 250%;
+                transform: translateX(-50%);
+                background-color: $white;
+                border-radius: 8px;
+                z-index: 10;
+                pointer-events: visible;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: -25px;
+                    left: 0;
+                    width: 100%;
+                    height: 25px;
+                }
             }
         }
 
         .menu__sub-link {
+            transition: color .3s linear;
 
             &:hover {
                 color: $blue;
@@ -171,24 +371,56 @@ main {
         }
     }
 
-    &__sub-item {
-        display: none;
-        padding: 40px 27px;
-        z-index: 5;
-        border-radius: 8px;
-        transform: translateX(-25%);
+    &__sub-item {}
+
+    @include r($xl) {
+        position: absolute;
+        top: -100vh;
+        transform: translateY(-100%);
+        left: 0;
+        width: 100vw;
+        flex-direction: column;
+        align-items: start;
+        padding-top: 110px;
+        height: 100vh;
+        width: 100%;
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), linear-gradient(180deg, #FFFFFF 0%, #CFD7D3 100%);
+        box-shadow: 8px 8px 56px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(24px);
+        transition: top .3s linear, transform .3s linear;
     }
 
-
+    &--active {
+        @include r($xl) {
+            top: 0;
+            transform: translateY(0);
+            z-index: 5;
+        }
+    }
 }
 
 .contacts {
+    z-index: 2;
+    transition: color .3s linear, z-index .3s linear;
+
+    @include r($s) {
+        position: absolute;
+        top: -200px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: block;
+        z-index: -1;
+        opacity: 0;
+        transition: all .3s linear;
+    }
+
     &__phone {
         padding-left: 32px;
         @extend %montserrat-700;
         font-size: 20px;
         color: $blue;
         position: relative;
+        transition: color .3s linear;
 
         &::before {
             content: "";
@@ -206,6 +438,12 @@ main {
         }
     }
 
+    &--active {
+        top: 20px;
+        opacity: 1;
+        z-index: 7;
+    }
+
     &__time {
         font-size: 12px;
         line-height: 200%;
@@ -217,63 +455,261 @@ main {
     font-size: 48px;
     line-height: 100%;
     margin-bottom: 32px;
+
+    @include r($m) {
+        margin-bottom: 16px;
+        font-size: 32px;
+        line-height: 150%;
+        text-align: center;
+    }
 }
 
 .hero {
-    margin-top: 16px;
-    height: calc(100vh - 132px);
-    background-image: url('../images/hero-back.png');
-    background-size: 672px;
-    background-repeat: no-repeat;
-    background-position-x: right;
-    background-position-y: top;
+    margin-top: 132px;
+    max-height: fit-content;
+
+    @include r($m) {
+        margin-top: 70px;
+    }
+
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        background-image: url('../images/hero-back.png');
+        background-size: 672px;
+        background-repeat: no-repeat;
+        background-position-x: right;
+        background-position-y: 10%;
+
+        @include r($xxl) {
+            background-position-x: 120%;
+        }
+
+        @include r($xl) {
+            margin-top: 64px;
+            background-size: 557px;
+            background-position-x: 123%;
+            background-position-y: center;
+        }
+
+        @include r($bg) {
+            background-position-x: 100%;
+            background-position-y: center;
+            flex-direction: column;
+            align-items: start;
+        }
+
+        @include r($l) {
+            background-size: 70%;
+            background-position-y: 70%;
+            background-position-x: 155%;
+        }
+
+        @include r($m) {
+            margin-top: 24px;
+            flex-direction: column;
+            align-items: start;
+            background-size: 80%;
+            background-repeat: no-repeat;
+            background-position-x: 190%;
+            background-position-y: 65%;
+        }
+
+        @include r($s) {
+            background-size: 311px;
+            background-position-x: 50%;
+            background-position-y: 38%;
+        }
+    }
 
     &__content {
-        max-width: 640px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        backdrop-filter: blur(24px);
+        max-width: 36%;
+        width: 100%;
+        padding-right: 32px;
+
+        @include r($xxl) {
+            border-radius: 50px;
+        }
+
+        @include r($bg) {
+            margin-top: 24px;
+            max-width: 100%;
+            text-align: center;
+            padding-right: 0;
+        }
+
+        @include r($m) {
+            max-width: 100%;
+            margin-right: 0;
+            border-radius: 0;
+            margin-bottom: 40px;
+        }
+
+        @include r($s) {
+            margin-bottom: 207px;
+        }
     }
 
     &__text {
         font-size: 24px;
         line-height: 167%;
+        max-width: 528px;
+
+        @include r($bg) {
+            max-width: 100%;
+            text-align: center;
+        }
+
+        @include r($m) {
+            font-size: 20px;
+            line-height: 200%;
+            max-width: 100%;
+            text-align: center;
+        }
     }
 }
 
 .form-book {
-    top: 80px;
-    right: 21%;
-    position: absolute;
-    max-width: 640px;
+    max-width: 36%;
+    width: 100%;
     background-color: rgba(255, 255, 255, 0.75);
     box-shadow: 24px 32px 56px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(24px);
     border-radius: 8px;
+    margin-bottom: 176px;
+    margin-top: 80px;
 
+    @include r($xxl) {
+        max-width: 480px;
+        margin-bottom: 112px;
+    }
+
+    @include r($bg) {
+        max-width: 50%;
+    }
+
+    @include r($l) {
+        max-width: 68%;
+    }
+
+    @include r($m) {
+        margin-top: 0;
+        margin-bottom: 80px;
+    }
+
+    @include r($s) {
+        max-width: 100%;
+        margin-bottom: 40px;
+    }
 
     &__title {
-        padding: 32px 80px;
         @extend %nunito-700;
+        margin-bottom: 32px;
     }
 
     &__content {
-
+        padding: 32px 80px;
         @extend %montserrat-500;
-        padding: 0 80px 37px 80px;
+
+        @include r($xxl) {
+            padding: 32px 24px;
+        }
     }
 
     &__phone,
     &__adress,
     &__select {
+        min-width: 100px;
+        width: 100%;
+        padding: 4px 0 4px 16px;
         @extend %montserrat-600;
         min-height: 48px;
+        margin-bottom: 24px;
+        border: none;
+        cursor: pointer;
         background-color: $white;
         box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
-        border: none;
+        outline: transparent 2px solid;
         border-radius: 8px;
+        transition: outline .3s linear, box-shadow .3s linear;
+
+        &:focus {
+            outline: $blue;
+        }
+
+        &:hover {
+            box-shadow: 0px 8px 48px rgba(0, 0, 0, 0.25);
+        }
+
+        &:active {
+            box-shadow: 0px 8px 48px rgba(41, 72, 132, 0.25);
+        }
+    }
+
+    &__phone {
+        margin-bottom: 37px;
+        transition: color .3s linear;
+    }
+
+    &__checkbox {
+        left: 0;
+        top: 0;
+        width: 10px;
+        height: 10px;
+        opacity: 0;
+        position: absolute;
+
+
+        &:checked+.form-book__checkmod::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+            background-color: transparent;
+            background-image: url('../images/sprite.svg#v');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            position: absolute;
+
+        }
+    }
+
+    &__checkmod {
+        position: absolute;
+        left: 0;
+        top: -12px;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        background-color: $blue;
+        border-radius: 8px;
+
+        &::before {
+            opacity: 0;
+            transition: opacity .3s linear;
+        }
     }
 
     &__label {
+        position: relative;
+        padding-left: 32px;
         font-size: 15px;
         line-height: 160%;
+        margin-bottom: 48px;
+
+        & a {
+            transition: color .3s linear;
+
+            &:hover {
+                color: $blue;
+            }
+        }
     }
 
 
@@ -302,31 +738,118 @@ main {
             box-shadow: 4px 4px 16px rgba(0, 117, 255, 0.35);
         }
     }
+
+    &__select {
+        position: relative;
+        appearance: none;
+
+    }
+
+    &__select-wrapper {
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url('../images/sprite.svg#sel');
+            background-repeat: no-repeat;
+            background-position: 95% 20px;
+            background-size: 20px;
+            z-index: 5;
+        }
+
+        &:focus::before {
+            filter: invert(70%) sepia(65%) saturate(3711%) hue-rotate(203deg) brightness(102%) contrast(108%);
+            background-color: transparent;
+        }
+
+        &:active::before {
+            filter: invert(70%) sepia(65%) saturate(3711%) hue-rotate(203deg) brightness(102%) contrast(108%);
+            background-color: transparent;
+        }
+    }
+
+    &__option {
+        font-size: 16px;
+        line-height: 40px;
+    }
 }
 
 .section__title {
     @extend %montserrat-700;
     font-size: 36px;
     line-height: 111%;
+
+    @include r($m) {
+        font-size: 20px;
+    }
 }
 
 .about {
+    padding: 40px 0;
+    margin-bottom: 56px;
+
+    @include r($m) {
+        padding: 32px 0;
+        margin-bottom: 40px;
+    }
 
     &__text {
         font-size: 20px;
         line-height: 160%;
         max-width: 928px;
+
+        @include r($m) {
+            font-size: 16px;
+        }
     }
 
     & a {
         color: $blue;
+        text-decoration: underline 1px transparent;
+        transition: text-decoration .3s linear;
+
+        &:hover {
+            text-decoration: underline 1px $blue;
+        }
+    }
+
+    &__title {
+        margin-bottom: 32px;
+
+        @include r($m) {
+            margin-bottom: 24px;
+        }
     }
 }
 
 .work-steps {
+    overflow: hidden;
+    margin-bottom: 80px;
+
+    @include r($m) {
+        margin-bottom: 40px;
+    }
+
+    .section__title {
+        margin-bottom: 48px;
+
+        @include r($m) {
+            margin-bottom: 40px;
+        }
+    }
+
     &__img {
         padding: 34px;
         max-width: 148px;
+        margin-bottom: 36px;
+
+        @include r($m) {
+            margin-bottom: 8px;
+        }
     }
 
     &__img-wrap {
@@ -334,27 +857,89 @@ main {
         border-radius: 50%;
         box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.25);
         transition: box-shadow .3s linear;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            top: 25%;
+            right: -64%;
+            background-image: url('../images/sprite.svg#1');
+            background-repeat: no-repeat;
+            background-position: -20px;
+            background-size: contain;
+            z-index: -1;
+            transition: color .3s linear, right .3s linear, filter .3s linear;
+        }
+
+        &--decor2 {
+            &::before {
+                background-image: url('../images/sprite.svg#2');
+            }
+        }
+
+        &--decor3 {
+            &::before {
+                background-image: url('../images/sprite.svg#3');
+            }
+        }
+
+        &--decor4 {
+            &::before {
+                background-image: url('../images/sprite.svg#4');
+            }
+        }
     }
 
     &__step {
         @extend %montserrat-700;
         font-size: 32px;
         line-height: 125%;
+        margin-bottom: 24px;
+
+        @include r($m) {
+            font-size: 20px;
+            line-height: 200%;
+            margin-bottom: 8px;
+        }
     }
 
     &__text {
         font-size: 20px;
+
+        @include r($m) {
+            font-size: 16px;
+            line-height: 24px;
+        }
     }
 
     &__list {
-        margin-bottom: 80px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 96px;
+
+        @include r($xl) {
+            gap: 24px;
+        }
+
+        @include r($m) {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 76px 24px;
+        }
+
+        @include r($s) {
+            grid-template-columns: repeat(1, 1fr);
+            gap: 40px;
+        }
     }
 
     &__item {
         &:hover {
-            .work-steps__decor {
-                color: #D7D7F8;
+            .work-steps__img-wrap::before {
+                filter: invert(9%) sepia(8%) saturate(1864%) hue-rotate(191deg) brightness(97%) contrast(100%);
                 right: -84%;
+                background-color: transparent;
             }
 
             .work-steps__img-wrap {
@@ -363,33 +948,41 @@ main {
         }
     }
 
-    &__decor {
-        position: absolute;
-        width: 100%;
-        height: 50%;
-        top: 50%;
-        right: -64%;
-        font-size: 96px;
-        line-height: 50%;
-        color: #E4E4E4;
-        @extend %montserrat-700;
-        z-index: -1;
-        transition: color .3s linear, right .3s linear;
-    }
+    &__decor {}
 }
 
 .marketing-text {
     padding: 20px 0;
     @extend %montserrat-700;
-    font-size: 36px;
-    line-height: 111%;
-    color: $white;
     background-color: $blue;
     margin-bottom: 80px;
+
+    @include r($m) {
+        margin-bottom: 40px;
+    }
+
+    &__text {
+        font-size: 36px;
+        line-height: 111%;
+        color: $white;
+
+        @include r($m) {
+            font-size: 20px;
+            line-height: 160%;
+        }
+    }
 }
 
 .advantages {
-    margin-bottom: 88px;
+    margin-bottom: 80px;
+
+    @include r($m) {
+        margin-bottom: 40px;
+    }
+
+    &__title {
+        margin-bottom: 48px;
+    }
 
     &__item {
         position: relative;
@@ -398,7 +991,8 @@ main {
         min-height: 320px;
         background-image: url('../images/adv-bg1.png');
         background-repeat: no-repeat;
-        background-position: left;
+        background-position: center;
+        background-size: cover;
         box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.25);
         border-radius: 16px;
 
@@ -416,6 +1010,10 @@ main {
             background-size: cover;
             background-position: center;
             transition: filter .3s linear, align-items .3s linear;
+
+            @include r($s) {
+                filter: invert(31%) sepia(43%) saturate(5192%) hue-rotate(203deg) brightness(102%) contrast(107%);
+            }
         }
 
         &::after {
@@ -429,10 +1027,15 @@ main {
             background-color: rgb(255, 255, 255, 0.95);
             border-radius: 16px;
             transition: background-color .3s linear;
+
+            @include r($s) {
+                background-color: rgb(255, 255, 255, 0.5);
+            }
+
         }
 
 
-        &:nth-child(2) {
+        &--1 {
             background-image: url('../images/adv-bg2.png');
 
             &::before {
@@ -440,7 +1043,7 @@ main {
             }
         }
 
-        &:nth-child(3) {
+        &--2 {
             background-image: url('../images/adv-bg3.png');
 
             &::before {
@@ -449,7 +1052,6 @@ main {
         }
 
         &:hover {
-            align-items: end;
 
             &::before {
                 filter: invert(31%) sepia(43%) saturate(5192%) hue-rotate(203deg) brightness(102%) contrast(107%);
@@ -460,37 +1062,150 @@ main {
             }
 
             .advantages__text {
-                position: relative;
-                z-index: 3;
+                top: auto;
+                bottom: 0;
+                transform: translateY(0);
                 background-color: rgb(255, 255, 255, 0.95);
                 border-radius: 16px 16px 0px 0px;
+
             }
 
         }
     }
 
     &__list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
         max-width: 1650px;
+
+        @include r($l) {
+            display: block;
+        }
+    }
+
+    .slick-arrow {
+        z-index: 3;
+        width: 44px;
+        height: 44px;
+        position: absolute;
+        bottom: 50%;
+        left: 0;
+        background: rgba(255, 255, 255, 0.75);
+        border-radius: 50%;
+        border: none;
+        box-shadow: 17px 24px 56px rgba(0, 0, 0, 0.25);
+        font-size: 0;
+        background-image: url('../images/sprite.svg#arr-r');
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: box-shadow .3s linear, border .3s linear, background-color .3s linear;
+
+        @include r($s) {
+            width: 24px;
+            height: 24px;
+        }
+
+        &:focus {
+            background-color: rgba(255, 255, 255, 0.75);
+            border: 1px solid #0075FF;
+            box-shadow: 17px 24px 56px rgba(0, 0, 0, 0.25);
+        }
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.75);
+            box-shadow: 17px 24px 56px rgba(0, 0, 0, 0.25);
+        }
+
+        &:active {
+            background-color: rgba(255, 255, 255, 0.75);
+        }
+    }
+
+    .slick-next {
+        left: auto;
+        right: 0;
+    }
+
+    .slick-disabled {
+        border: 1px solid #B9B9B9;
+        filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.15));
+        border-radius: 50%;
+        background-color: transparent;
+    }
+
+    .slick-prev {
+        background-image: url('../images/sprite.svg#arr-l');
+    }
+
+    .slick-slide {
+        padding: 10px 90px;
+
+        @include r($s) {
+            padding: 10px 40px;
+        }
     }
 
     &__text {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         margin: 0 62px;
         padding: 16px;
         z-index: 3;
+
+        @include r($s) {
+            top: auto;
+            bottom: 0;
+            transform: translateY(0);
+            background-color: rgb(255, 255, 255, 0.95);
+            border-radius: 16px 16px 0px 0px;
+            margin: 0;
+            padding: 16px;
+        }
     }
 }
 
 .services {
 
+    .section__title {
+        margin-bottom: 24px;
+    }
+
     &__list {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 32px;
         max-width: 1312px;
-        margin: 0 auto 92px;
+        margin: 0 auto 80px;
+
+        @include r($l) {
+            grid-template-columns: repeat(3, 1fr);
+            font-size: 16px;
+            line-height: 150%;
+        }
+
+        @include r($m) {
+            margin-bottom: 40px;
+        }
+
+        @include r($s) {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px 16px;
+        }
+    }
+
+    &__link {
+        position: relative;
+        z-index: 3;
     }
 
     &__item {
         position: relative;
-        width: 192px;
-        height: 160px;
+        max-width: 192px;
+        width: 100%;
+        min-height: 160px;
+        margin: 0 auto;
         box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.25);
         border-radius: 16px;
         transition: box-shadow .3s linear;
@@ -506,7 +1221,7 @@ main {
             background-image: url('../images/sprite.svg#srv-1');
             background-repeat: no-repeat;
             background-size: 130px;
-            background-position: 30px 14px;
+            background-position: 50% 14px;
             transition: filter .3s linear;
         }
 
@@ -515,7 +1230,8 @@ main {
 
             .services__btn {
                 z-index: 2;
-                bottom: -16px;
+                opacity: 1;
+                bottom: -35px;
                 box-shadow: 4px 4px 16px rgba(0, 117, 255, 0.35);
             }
 
@@ -547,8 +1263,10 @@ main {
 
     &__btn {
         z-index: -1;
+        min-width: 90px;
         position: absolute;
         bottom: 0;
+        opacity: 0;
         left: 50%;
         transform: translateX(-50%);
         border: 1px solid $blue;
@@ -559,58 +1277,72 @@ main {
         font-size: 12px;
         line-height: 200%;
         transition: z-index .3s linear, box-shadow .3s linear, bottom .3s linear;
-
     }
 
     &__text {
         @extend %montserrat-700;
-        font-size: 16px;
+        font-size: 20px;
         line-height: 150%;
         padding: 88px 8px 0 8px;
+
+        @include r($l) {
+            font-size: 16px;
+            line-height: 150%;
+        }
     }
 
+    &__img {
+        height: fit-content;
+    }
+}
+
+.cleaning {
     &__box {
-        margin-bottom: 28px;
         z-index: 2;
+
+        @include r($m) {
+            margin-bottom: 32px;
+        }
+    }
+
+    &__img {
+        height: fit-content;
     }
 
     &__content {
         position: relative;
-        min-height: 480px;
+        min-height: fit-content;
+        padding-bottom: 30px;
 
-
-        &::before {
-            content: "";
-            position: absolute;
-            width: 150%;
-            height: 100%;
-            left: -69%;
-            top: 0;
-            background-image: url('../images/services/srv-bg1.png');
-            background-repeat: no-repeat;
-            background-position: 0 0;
+        @include r($xl) {
+            min-height: fit-content;
+            align-items: center;
         }
+    }
 
-        &:nth-child(2)::before {
-            left: 50%;
-            background-image: url('../images/services/srv-bg2.png');
-            background-position: right;
-        }
+    &__content-wrapper {}
 
-        &:nth-child(3)::before {
-            background-image: url('../images/services/srv-bg3.png');
+    &__descr {
+        @include r($s) {
+            font-size: 16px;
+            line-height: 150%;
         }
+    }
+
+    .section__title {
+        margin-bottom: 32px;
     }
 }
 
-.faq {
+.marg-b180 {
+    margin-bottom: 236px;
+}
 
-    &__link {
+.faq {
+    &__question {
         position: relative;
-        width: fit-content;
+        list-style: none;
         padding: 16px 80px 16px 32px;
-        @extend %montserrat-700;
-        color: $black-second;
         transition: box-shadow .3s linear, border-radius .3s linear;
 
         &::before {
@@ -621,12 +1353,17 @@ main {
             height: 100%;
             right: 0;
             top: 0;
+            pointer-events: none;
             background-color: transparent;
             background-image: url('../images/sprite.svg#plus');
             background-size: 40px;
             background-repeat: no-repeat;
-            background-position: right;
-            transition: opacity .3s linear;
+            background-position: right 50%;
+            transition: opacity .3s linear, filter .3s linear;
+
+            @include r($m) {
+                opacity: 1;
+            }
         }
 
         &:hover {
@@ -635,7 +1372,53 @@ main {
 
             &::before {
                 opacity: 1;
+                filter: invert(70%) sepia(65%) saturate(3711%) hue-rotate(203deg) brightness(102%) contrast(108%);
+                background-color: transparent;
             }
+
+        }
+
+        @include r($m) {
+            padding: 10px 48px 10px 10px;
+        }
+    }
+
+    &__item {
+        position: relative;
+        width: fit-content;
+        @extend %montserrat-700;
+        color: $black-second;
+        transition: box-shadow .3s linear, border-radius .3s linear;
+
+        & p {
+            margin-top: 15px;
+            padding: 0 20px 20px;
+            font-size: 24px;
+            line-height: 150%;
+            color: $black;
+            @extend %hind_madurai-400;
+        }
+
+        @include r($m) {
+            font-size: 15px;
+            line-height: 150%;
+            width: 100%;
+        }
+    }
+
+    details[open] summary~* {
+        animation: sweep .8s ease-in-out;
+    }
+
+    @keyframes sweep {
+        0% {
+            opacity: 0;
+            margin-left: -10px
+        }
+
+        100% {
+            opacity: 1;
+            margin-left: 0px
         }
     }
 }
@@ -656,7 +1439,11 @@ main {
     }
 
     &__title {
-        margin-bottom: 160px;
+        margin-bottom: 60px;
+
+        @include r($m) {
+            margin-bottom: 40px;
+        }
     }
 
     &__img {
@@ -671,14 +1458,29 @@ main {
 
     &__list {
         position: relative;
-        margin-bottom: 124px;
+        margin-bottom: 94px;
         column-gap: 78px;
         flex-wrap: wrap;
         row-gap: 0px;
+
+        @include r($l) {
+            margin-bottom: 34px;
+        }
     }
 
     &__item {
         margin-right: -15px;
+
+        @include r($l) {
+            max-width: 243px;
+            margin: 0 auto;
+        }
+
+        @include r($l) {
+            max-width: none;
+            margin: 0 auto;
+        }
+
     }
 
     &__name {
@@ -731,6 +1533,12 @@ main {
         background-position: center;
         transition: box-shadow .3s linear, border .3s linear, background-color .3s linear;
 
+        @include r($l) {
+            z-index: 3;
+            bottom: 50%;
+            left: 0;
+        }
+
         &:focus {
             background-color: rgba(255, 255, 255, 0.75);
             border: 1px solid #0075FF;
@@ -749,6 +1557,12 @@ main {
 
     .slick-next {
         transform: translateX(132px);
+
+        @include r($l) {
+            transform: translateX(0);
+            left: auto;
+            right: -15px;
+        }
     }
 
     .slick-disabled {
@@ -762,10 +1576,15 @@ main {
 
         transform: translateX(-132px);
         background-image: url('../images/sprite.svg#arr-l');
+
+        @include r($l) {
+            transform: translateX(0);
+            left: -15px;
+        }
     }
 
     .slick-slide {
-        padding: 100px 16px 30px 16px;
+        padding: 120px 16px 30px 16px;
     }
 
     .slick-dots {
@@ -810,27 +1629,125 @@ main {
     }
 }
 
+.mb-80 {
+    margin-bottom: 80px;
+}
+
+.mb-56 {
+    margin-bottom: 56px;
+}
+
 .footer {
     position: relative;
     z-index: 2;
-
     min-height: 504px;
     background-color: $white;
 
+    @include r($m) {
+        min-height: fit-content;
+    }
+
     &__sections {
         padding-top: 40px;
+
+        @include r($m) {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .footer__drop--active {
+        color: $blue;
+
+        &:not(:last-child):after {
+            filter: invert(29%) sepia(73%) saturate(3584%) hue-rotate(204deg) brightness(103%) contrast(106%);
+            transform: rotate(90deg);
+        }
+
+        transition: color .3s linear;
     }
 
     &__title {
+        position: relative;
         margin-bottom: 24px;
         @extend %montserrat-700;
-        font-size: 16px;
+        font-size: 24px;
         line-height: 150%;
+        width: 100%;
+
+        @include r($m) {
+            padding-left: 20px;
+            text-align: start;
+            width: fit-content;
+            margin: auto;
+            margin-bottom: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            max-width: 160px;
+            width: 100%;
+            transition: color .3s linear;
+
+            &:hover {
+                color: $blue;
+
+                &:not(:last-child):after {
+                    filter: invert(29%) sepia(73%) saturate(3584%) hue-rotate(204deg) brightness(103%) contrast(106%);
+                }
+            }
+
+            &:active {
+                color: $blue;
+
+                &:not(:last-child):after {
+                    filter: invert(29%) sepia(73%) saturate(3584%) hue-rotate(204deg) brightness(103%) contrast(106%);
+                    transform: rotate(90deg);
+                }
+            }
+
+            &:not(:last-child):after {
+                content: "";
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                left: -5px;
+                top: 25%;
+                background-color: transparent;
+                background-image: url('../images/sprite.svg#foot-arr');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 30px;
+                transition: all .3s linear;
+            }
+        }
+
     }
 
     &__list {
+        display: flex;
+        flex-direction: column;
         gap: 8px;
-        font-size: 12px;
+        font-size: 20px;
+        transition: all .3s linear;
+
+        @include r($m) {
+            opacity: 0;
+            position: relative;
+            display: flex;
+            transform: scale(0);
+            align-items: center;
+            font-size: 12px;
+            line-height: 200%;
+            height: 0;
+
+            &--active {
+                height: auto;
+                position: relative;
+                transform: scale(1);
+                align-items: center;
+                opacity: 1;
+                gap: 0;
+            }
+        }
     }
 
     &__phone {
@@ -840,6 +1757,10 @@ main {
         color: $blue;
         position: relative;
         margin-bottom: 8px;
+
+        @include r($m) {
+            font-size: 16px;
+        }
 
         &::before {
             content: "";
@@ -859,16 +1780,26 @@ main {
 
     &__mail {
         margin-bottom: 11px;
-        font-size: 12px;
+        font-size: 20px;
+        transition: color .3s linear;
+
+        @include r($m) {
+            font-size: 16px;
+        }
+
+        &:hover {
+            color: $blue;
+
+        }
     }
 
     &__contact {
         & span {
             width: 115px;
             height: 16px;
-            background-position: left;
+            background-position: center;
             background-repeat: no-repeat;
-            background-size: 100%;
+            background-size: 109px;
             margin-bottom: 21px;
         }
     }
@@ -876,28 +1807,85 @@ main {
     &__btn {
         margin-bottom: 136px;
         padding: 4px 16px;
-        font-size: 12px;
+        font-size: 16px;
         line-height: 200%;
         width: max-content;
         color: $blue;
         background-color: transparent;
-        border: 2px solid $blue;
+        border: 4px solid transparent;
+        outline: 2px solid $blue;
         border-radius: 32px;
+        transition: border .3s linear, filter .3s linear, color .3s linear, outline .3s linear;
+
+        &:focus {
+            border: 4px solid $blue;
+            outline: 4px solid transparent;
+            filter: drop-shadow(8px 8px 16px rgba(0, 117, 255, 0.5));
+        }
+
+        &:hover {
+            border: 4px solid $blue;
+            outline: 4px solid transparent;
+            filter: drop-shadow(8px 8px 32px rgba(0, 117, 255, 0.5));
+        }
+
+        &:active {
+            border: 4px solid transparent;
+            outline: 2px solid $blue;
+        }
+
+        @include r($m) {
+            margin-bottom: 24px;
+        }
     }
 
     &__socials {
         max-height: 24px;
         gap: 32px;
+
+        @include r($m) {
+            margin-bottom: 24px;
+            gap: 16px;
+        }
     }
 
     &__social-icon {
         width: 24px;
         height: 24px;
+
+        & path {
+            fill: #3D3D3D;
+            transition: fill .3s linear;
+        }
+
+        transition: fill .3s linear;
+
+        &:hover {
+            & path {
+                fill: $blue;
+            }
+        }
     }
+
+    &__social-icon {}
 
     &__bottom-link {
         margin-bottom: 32px;
         font-size: 12px;
+        transition: color .3s linear;
+
+        &:hover {
+            color: $blue;
+        }
+    }
+
+    &__link {
+        transition: color .3s linear;
+
+        &:hover {
+            color: $blue;
+
+        }
     }
 }
 
