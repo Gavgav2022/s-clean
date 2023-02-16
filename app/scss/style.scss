@@ -216,6 +216,7 @@ main {
         border-radius: 32px;
         transition: all .3s linear;
 
+
         @include r($m) {
             display: none;
             outline: 4px solid transparent;
@@ -244,6 +245,8 @@ main {
     }
 
     .logo {
+        z-index: 7;
+
         &__img {
             display: block;
             max-width: 192px;
@@ -280,6 +283,20 @@ main {
 
 
 .menu {
+
+    .footer__sections {
+        display: none;
+
+        @include r($xl) {
+            display: flex;
+            flex-direction: row;
+        }
+
+        @include r($m) {
+            flex-direction: column;
+        }
+    }
+
     &__list {
         display: flex;
         gap: 16px;
@@ -287,6 +304,44 @@ main {
         font-size: 20px;
         line-height: 200%;
         min-width: 711px;
+
+        @include r($xl) {
+            display: none;
+        }
+
+        .footer__sections {
+            margin: 0 auto;
+            display: none;
+            flex-direction: column;
+        }
+
+        .footer__list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 20px;
+            transition: all .3s linear;
+
+            @include r($m) {
+                opacity: 0;
+                position: relative;
+                display: flex;
+                transform: scale(0);
+                align-items: center;
+                font-size: 12px;
+                line-height: 200%;
+                height: 0;
+
+                &--active {
+                    height: auto;
+                    position: relative;
+                    transform: scale(1);
+                    align-items: center;
+                    opacity: 1;
+                    gap: 0;
+                }
+            }
+        }
 
         @include r($xxl) {
             gap: 0;
@@ -296,6 +351,7 @@ main {
             flex-direction: column;
             align-items: start;
             gap: 16px;
+            min-width: 0;
         }
     }
 
@@ -401,17 +457,10 @@ main {
 
 .contacts {
     z-index: 2;
-    transition: color .3s linear, z-index .3s linear;
+    transition: color .3s linear, z-index .3s linear, opacity .3s linear;
 
     @include r($s) {
-        position: absolute;
-        top: -200px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: block;
-        z-index: -1;
-        opacity: 0;
-        transition: all .3s linear;
+        display: none;
     }
 
     &__phone {
@@ -439,9 +488,8 @@ main {
     }
 
     &--active {
-        top: 20px;
-        opacity: 1;
-        z-index: 7;
+        opacity: 0;
+        z-index: -1;
     }
 
     &__time {
@@ -477,14 +525,12 @@ main {
         display: flex;
         align-items: center;
         background-image: url('../images/hero-back.png');
-        background-size: 672px;
+        background-size: 40%;
         background-repeat: no-repeat;
         background-position-x: right;
         background-position-y: 10%;
 
-        @include r($xxl) {
-            background-position-x: 120%;
-        }
+        @include r($xxl) {}
 
         @include r($xl) {
             margin-top: 64px;
@@ -519,7 +565,7 @@ main {
         @include r($s) {
             background-size: 311px;
             background-position-x: 50%;
-            background-position-y: 38%;
+            background-position-y: 35%;
         }
     }
 
@@ -1009,9 +1055,10 @@ main {
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
-            transition: filter .3s linear, align-items .3s linear;
+            transition: background-image .9s linear;
 
             @include r($s) {
+                background-color: transparent;
                 filter: invert(31%) sepia(43%) saturate(5192%) hue-rotate(203deg) brightness(102%) contrast(107%);
             }
         }
@@ -1031,30 +1078,25 @@ main {
             @include r($s) {
                 background-color: rgb(255, 255, 255, 0.5);
             }
-
-        }
-
-
-        &--1 {
-            background-image: url('../images/adv-bg2.png');
-
-            &::before {
-                background-image: url('../images/sprite.svg#adv-2');
-            }
-        }
-
-        &--2 {
-            background-image: url('../images/adv-bg3.png');
-
-            &::before {
-                background-image: url('../images/sprite.svg#adv-3');
-            }
         }
 
         &:hover {
 
             &::before {
-                filter: invert(31%) sepia(43%) saturate(5192%) hue-rotate(203deg) brightness(102%) contrast(107%);
+                background-color: $blue;
+                mask-image: url('../images/sprite.svg#adv-1');
+                mask-size: 100px;
+                background-image: none;
+                mask-position: center;
+                mask-repeat: no-repeat;
+                width: 44px;
+                height: 44px;
+
+                @include r($s) {
+                    mask-image: none;
+                    background-image: url('../images/sprite.svg#adv-1');
+                    background-color: transparent;
+                }
             }
 
             &::after {
@@ -1071,6 +1113,49 @@ main {
             }
 
         }
+
+        &--1 {
+            background-image: url('../images/adv-bg2.png');
+
+            &::before {
+                background-image: url('../images/sprite.svg#adv-2');
+            }
+
+            &:hover {
+
+                &::before {
+                    mask-image: url('../images/sprite.svg#adv-2');
+
+                    @include r($s) {
+                        mask-image: none;
+                        background-image: url('../images/sprite.svg#adv-2');
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+
+        &--2 {
+            background-image: url('../images/adv-bg3.png');
+
+            &::before {
+                background-image: url('../images/sprite.svg#adv-3');
+
+                @include r($s) {
+                    mask-image: none;
+                    background-image: url('../images/sprite.svg#adv-3');
+                    background-color: transparent;
+                }
+            }
+
+            &:hover {
+                &::before {
+                    mask-image: url('../images/sprite.svg#adv-3');
+                }
+            }
+        }
+
+
     }
 
     &__list {
@@ -1153,6 +1238,7 @@ main {
         margin: 0 62px;
         padding: 16px;
         z-index: 3;
+        transition: all .3s linear;
 
         @include r($s) {
             top: auto;
@@ -1261,6 +1347,10 @@ main {
         background-image: url('../images/sprite.svg#srv-6');
     }
 
+    &__box {
+        margin-bottom: 49px;
+    }
+
     &__btn {
         z-index: -1;
         min-width: 90px;
@@ -1277,6 +1367,10 @@ main {
         font-size: 12px;
         line-height: 200%;
         transition: z-index .3s linear, box-shadow .3s linear, bottom .3s linear;
+
+        @include r($m) {
+            display: none
+        }
     }
 
     &__text {
@@ -1293,6 +1387,19 @@ main {
 
     &__img {
         height: fit-content;
+
+
+        @include r($m) {
+            margin-right: auto;
+        }
+
+        &--right {
+
+            @include r($m) {
+                margin-right: 0;
+                margin-left: auto;
+            }
+        }
     }
 }
 
@@ -1345,6 +1452,10 @@ main {
         padding: 16px 80px 16px 32px;
         transition: box-shadow .3s linear, border-radius .3s linear;
 
+        @include r($s) {
+            text-align: start;
+        }
+
         &::before {
             content: "";
             position: absolute;
@@ -1383,7 +1494,17 @@ main {
         }
     }
 
+    .section__title {
+        margin-bottom: 40px;
+
+        @include r($m) {
+            margin-bottom: 24px;
+        }
+    }
+
     &__item {
+        margin: 0 auto;
+        margin-bottom: 24px;
         position: relative;
         width: fit-content;
         @extend %montserrat-700;
@@ -1400,6 +1521,7 @@ main {
         }
 
         @include r($m) {
+            margin-bottom: 8px;
             font-size: 15px;
             line-height: 150%;
             width: 100%;

@@ -49,11 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const footerTitle3 = document.querySelector('.footer__drop-3'); //мобильное меню
   const footerTitle4 = document.querySelector('.footer__drop-4'); //мобильное меню
   const footerTitle5 = document.querySelector('.footer__drop-5'); //мобильное меню
+  const footerTitle6 = document.querySelector('.footer__drop-6'); //мобильное меню
   const footerList1 = document.querySelector('.footer__list-1'); //мобильное меню
   const footerList2 = document.querySelector('.footer__list-2'); //мобильное меню
   const footerList3 = document.querySelector('.footer__list-3'); //мобильное меню
   const footerList4 = document.querySelector('.footer__list-4'); //мобильное меню
   const footerList5 = document.querySelector('.footer__list-5'); //мобильное меню
+  const footerList6 = document.querySelector('.footer__list-6'); //мобильное меню
   const bodyLock = document.querySelector('body'); //ищем как селектор ТЕГА
 
   burger.addEventListener('click', () => {
@@ -137,6 +139,16 @@ document.addEventListener('DOMContentLoaded', () => {
       footerList5.classList.add('footer__list--active');
     } else { //Когда нету активного класса у меню
       footerList5.classList.remove('footer__list--active');
+    }
+  });
+
+  footerTitle6.addEventListener('click', () => {
+    footerTitle6.classList.toggle('footer__drop--active'); //когда меню открыто
+
+    if (footerTitle6.classList.contains('footer__drop--active')) { //Проверяем, есть ли у меню активный класс
+      footerList6.classList.add('footer__list--active');
+    } else { //Когда нету активного класса у меню
+      footerList6.classList.remove('footer__list--active');
     }
   });
 });
