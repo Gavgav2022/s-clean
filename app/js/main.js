@@ -1,4 +1,3 @@
-
 var element = document.getElementById('form-book__phone');
 var maskOptions = {
   mask: '+{44}(000)000-00-00',
@@ -14,7 +13,7 @@ $(document).ready(function () {
     infinite: false,
 
     responsive: [{
-        breakpoint: 992,
+        breakpoint: 993,
         settings: {
           dots: false,
           slidesToShow: 2,
@@ -153,34 +152,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-$(document).ready(function () {
-  function checkWidth() {
-    var windowWidth = $('body').innerWidth(),
-      elem = $(".advantages__list"); // лучше сохранять объект в переменную, многократно чтобы не насиловать 
-    elem2 = $(".advantages__item");
-    // страницу для поиска нужного элемента
-    if (windowWidth < 992) {
-      elem.addClass('advantages__list--active');
-      $(document).ready(function () {
-        $('.advantages__list--active').slick({
-          dots: false,
-          arrows: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: false,
-        });
-        elem2.addClass('advantages__item--active');
-      });
-    } else {
-      elem.removeClass('advantages__list--active');
-      elem2.removeClass('advantages__item--active');
+$('.advantages__list').slick({
+
+  responsive: [{
+      breakpoint: 7000,
+        settings: "unslick"
+    },
+    {
+      breakpoint: 993,
+      settings: {  
+        dots: false,
+        arrows: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: false,
+      }
     }
-  }
-
-  checkWidth(); // проверит при загрузке страницы
-
-  $(window).resize(function () {
-    checkWidth(); // проверит при изменении размера окна клиента
-  });
+  ]
 });
-

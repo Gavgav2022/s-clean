@@ -198,7 +198,7 @@ main {
         justify-content: space-between;
         min-height: 132px;
 
-        @include r($m) {
+        @include r($xl) {
             min-height: fit-content;
         }
 
@@ -211,26 +211,26 @@ main {
         line-height: 200%;
         color: $blue;
         background-color: transparent;
-        border: 4px solid transparent;
         outline: 2px solid $blue;
+        border: 4px solid transparent;
         border-radius: 32px;
         transition: all .3s linear;
 
 
         @include r($m) {
             display: none;
-            outline: 4px solid transparent;
-            border: 4px solid $blue;
+            border: 4px solid transparent;
+            outline: 2px solid $blue;
         }
 
         &:focus {
-            outline: 0px;
+            border: 4px solid $blue;
             filter: drop-shadow(8px 8px 16px rgba(0, 117, 255, 0.5));
         }
 
         &:hover {
-            outline: 4px solid transparent;
             border: 4px solid $blue;
+            outline: 2px solid transparent;
             filter: drop-shadow(8px 8px 32px rgba(0, 117, 255, 0.5));
         }
 
@@ -246,16 +246,23 @@ main {
 
     .logo {
         z-index: 7;
+        border-radius: 10px;
 
         &__img {
+            background-color: $white;
             display: block;
             max-width: 192px;
             width: 100%;
             padding-bottom: 15px;
+            padding-top: 5px;
         }
 
-        @include r($xxl) {
-            max-width: 134px;
+        @include r($m) {
+            max-width: 152px;
+        }
+
+        @include r($s) {
+            max-width: 136px;
         }
     }
 
@@ -281,11 +288,12 @@ main {
     }
 }
 
-
 .menu {
 
     .footer__sections {
         display: none;
+        overflow: scroll;
+        padding-left: 10px;
 
         @include r($xl) {
             display: flex;
@@ -295,6 +303,11 @@ main {
         @include r($m) {
             flex-direction: column;
         }
+    }
+
+    .footer__link {
+        display: block;
+        min-height: 44px;
     }
 
     &__list {
@@ -321,6 +334,7 @@ main {
             gap: 8px;
             font-size: 20px;
             transition: all .3s linear;
+            line-height: 220%;
 
             @include r($m) {
                 opacity: 0;
@@ -329,7 +343,7 @@ main {
                 transform: scale(0);
                 align-items: center;
                 font-size: 12px;
-                line-height: 200%;
+                line-height: 220%;
                 height: 0;
 
                 &--active {
@@ -427,12 +441,11 @@ main {
         }
     }
 
-    &__sub-item {}
 
     @include r($xl) {
         position: absolute;
         top: -100vh;
-        transform: translateY(-100%);
+        transform: translateY(-300%);
         left: 0;
         width: 100vw;
         flex-direction: column;
@@ -447,6 +460,8 @@ main {
     }
 
     &--active {
+        overflow: scroll;
+
         @include r($xl) {
             top: 0;
             transform: translateY(0);
@@ -515,10 +530,27 @@ main {
 .hero {
     margin-top: 132px;
     max-height: fit-content;
+    background-repeat: no-repeat;
+    background-position: right;
+
+    @include r($xl) {
+        margin-top: 99px;
+        background-position: right 271px;
+        background-size: cover;
+    }
 
     @include r($m) {
         margin-top: 70px;
     }
+
+    @include r($s) {
+        background-size: contain;
+    }
+
+    @include r($xss) {
+        background-position: right 310 px;
+    }
+
 
 
     &__inner {
@@ -529,6 +561,10 @@ main {
         background-repeat: no-repeat;
         background-position-x: right;
         background-position-y: 10%;
+
+        &--bg {
+            background-image: none;
+        }
 
         @include r($xxl) {}
 
@@ -548,7 +584,7 @@ main {
 
         @include r($l) {
             background-size: 70%;
-            background-position-y: 70%;
+            background-position-y: 72%;
             background-position-x: 155%;
         }
 
@@ -565,7 +601,15 @@ main {
         @include r($s) {
             background-size: 311px;
             background-position-x: 50%;
-            background-position-y: 35%;
+            background-position-y: 29%;
+        }
+
+        @include r($xs) {
+            background-position-y: 33%;
+        }
+
+        @include r($xss) {
+            background-position-y: 37%;
         }
     }
 
@@ -598,6 +642,10 @@ main {
 
         @include r($s) {
             margin-bottom: 207px;
+        }
+
+        @include r($s) {
+            margin-bottom: 250px;
         }
     }
 
@@ -712,17 +760,8 @@ main {
 
 
         &:checked+.form-book__checkmod::before {
-            content: "";
-            width: 100%;
-            height: 100%;
             opacity: 1;
-            background-color: transparent;
-            background-image: url('../images/sprite.svg#v');
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
-            position: absolute;
-
+            background-color: $blue;
         }
     }
 
@@ -733,13 +772,51 @@ main {
         width: 24px;
         height: 24px;
         cursor: pointer;
-        background-color: $blue;
+        background-color: $white;
+        box-shadow: 0px 8px 48px rgba(0, 0, 0, 0.25);
         border-radius: 8px;
+        filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.15));
+        transition: all .3s linear;
+
+        &:focus {
+
+            &::before {
+                border: 1px solid #E14F74;
+                box-shadow: 0px 8px 48px rgba(41, 72, 132, 0.25);
+            }
+        }
+
+        &:hover {
+
+            &::before {
+                box-shadow: 0px 8px 48px rgba(0, 0, 0, 0.25);
+            }
+        }
+
+        &:active {
+
+            &::before {
+                box-shadow: 0px 4px 8px rgba(41, 72, 132, 0.25);
+            }
+        }
 
         &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('../images/sprite.svg#v');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            border-radius: 8px;
+            background-color: transparent;
             opacity: 0;
-            transition: opacity .3s linear;
+            transition: all .3s linear;
+
         }
+
+
     }
 
     &__label {
@@ -891,18 +968,20 @@ main {
     &__img {
         padding: 34px;
         max-width: 148px;
-        margin-bottom: 36px;
-
-        @include r($m) {
-            margin-bottom: 8px;
-        }
     }
 
     &__img-wrap {
         position: relative;
         border-radius: 50%;
+        width: 148px;
+        height: 148px;
         box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.25);
         transition: box-shadow .3s linear;
+        margin-bottom: 36px;
+
+        @include r($m) {
+            margin-bottom: 8px;
+        }
 
         &::before {
             content: "";
@@ -1055,7 +1134,7 @@ main {
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
-            transition: background-image .9s linear;
+            transition: background-image .3s linear;
 
             @include r($s) {
                 background-color: transparent;
@@ -1308,7 +1387,6 @@ main {
             background-repeat: no-repeat;
             background-size: 130px;
             background-position: 50% 14px;
-            transition: filter .3s linear;
         }
 
         &:hover {
@@ -1317,7 +1395,7 @@ main {
             .services__btn {
                 z-index: 2;
                 opacity: 1;
-                bottom: -35px;
+                bottom: -43px;
                 box-shadow: 4px 4px 16px rgba(0, 117, 255, 0.35);
             }
 
@@ -1386,7 +1464,7 @@ main {
     }
 
     &__img {
-        height: fit-content;
+        height: auto;
 
 
         @include r($m) {
@@ -1413,7 +1491,7 @@ main {
     }
 
     &__img {
-        height: fit-content;
+        height: auto;
     }
 
     &__content {
@@ -1422,7 +1500,6 @@ main {
         padding-bottom: 30px;
 
         @include r($xl) {
-            min-height: fit-content;
             align-items: center;
         }
     }
@@ -1447,12 +1524,16 @@ main {
 
 .faq {
     &__question {
+        width: fit-content;
+        margin: 0 auto;
         position: relative;
         list-style: none;
         padding: 16px 80px 16px 32px;
         transition: box-shadow .3s linear, border-radius .3s linear;
 
         @include r($s) {
+            width: calc(100% - 80px);
+            margin: 0 auto;
             text-align: start;
         }
 
@@ -1486,7 +1567,6 @@ main {
                 filter: invert(70%) sepia(65%) saturate(3711%) hue-rotate(203deg) brightness(102%) contrast(108%);
                 background-color: transparent;
             }
-
         }
 
         @include r($m) {
@@ -1528,19 +1608,20 @@ main {
         }
     }
 
-    details[open] summary~* {
-        animation: sweep .8s ease-in-out;
+
+    & details[open] summary~* {
+        animation: sweep .3s ease-in-out;
     }
 
     @keyframes sweep {
         0% {
+            font-size: 0;
             opacity: 0;
-            margin-left: -10px
         }
 
         100% {
+            font-size: 24px;
             opacity: 1;
-            margin-left: 0px
         }
     }
 }
@@ -1678,7 +1759,7 @@ main {
     }
 
     .slick-next {
-        transform: translateX(132px);
+        transform: translateX(110px);
 
         @include r($l) {
             transform: translateX(0);
@@ -1797,6 +1878,14 @@ main {
         line-height: 150%;
         width: 100%;
 
+        &--contact {
+            display: block;
+
+            @include r($m) {
+                display: none;
+            }
+        }
+
         @include r($m) {
             padding-left: 20px;
             text-align: start;
@@ -1873,7 +1962,6 @@ main {
     }
 
     &__phone {
-        padding-left: 32px;
         @extend %montserrat-700;
         font-size: 20px;
         color: $blue;
@@ -1890,7 +1978,7 @@ main {
             width: 24px;
             height: 24px;
             top: 50%;
-            left: 0;
+            left: -32px;
             transform: translateY(-50%);
             background-image: url('../images/sprite.svg#ph-icon');
             background-position: center;
@@ -1916,6 +2004,14 @@ main {
     }
 
     &__contact {
+        align-items: start;
+
+        @include r($m) {
+            align-items: center;
+        }
+
+
+
         & span {
             width: 115px;
             height: 16px;
@@ -1941,19 +2037,19 @@ main {
 
         &:focus {
             border: 4px solid $blue;
-            outline: 4px solid transparent;
+            outline: 2px solid transparent;
             filter: drop-shadow(8px 8px 16px rgba(0, 117, 255, 0.5));
         }
 
         &:hover {
             border: 4px solid $blue;
-            outline: 4px solid transparent;
+            outline: 2px solid transparent;
             filter: drop-shadow(8px 8px 32px rgba(0, 117, 255, 0.5));
         }
 
         &:active {
-            border: 4px solid transparent;
-            outline: 2px solid $blue;
+            border: 4px solid $blue;
+            outline: 2px solid transparent;
         }
 
         @include r($m) {
@@ -1988,8 +2084,6 @@ main {
             }
         }
     }
-
-    &__social-icon {}
 
     &__bottom-link {
         margin-bottom: 32px;
