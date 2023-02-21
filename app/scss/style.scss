@@ -602,7 +602,7 @@ main {
 
     @include r($s) {
         background-size: contain;
-        background-position: 0 37%;
+        background-position: 0 38%;
     }
 
     @include r($xss) {
@@ -805,8 +805,11 @@ main {
     }
 
     @include r($s) {
-        max-width: 100%;
+        position: relative;
+        max-width: 100vw;
+        width: 100vw;
         margin-bottom: 40px;
+        margin-left: -15px;
     }
 
     &__title {
@@ -1760,7 +1763,7 @@ main {
             background-size: 40px;
             background-repeat: no-repeat;
             background-position: right 50%;
-            transition: opacity .3s linear;
+            transition: opasity .3s linear, background-color .3s linear, background-position .3s linear, background-size .3s linear, background-image .3s linear;
 
             @include r($m) {
                 opacity: 1;
@@ -1777,6 +1780,8 @@ main {
                 background-color: transparent;
             }
         }
+
+
 
         @include r($m) {
             padding: 10px 48px 10px 10px;
@@ -1822,8 +1827,17 @@ main {
         }
     }
 
+    & details[open] {
+        .faq__question::before {
+            background-image: url(../images/sprite.svg#minus);
+            background-size: 20px;
+            background-position: 97% 50%;
+        }
+    }
+
 
     & details[open] summary~* {
+
         animation: sweep .3s ease-in-out;
     }
 
