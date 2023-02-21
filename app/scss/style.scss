@@ -407,11 +407,18 @@ main {
     &__link {
         display: block;
         padding: 8px;
+
+        @include r($m) {
+            display: flex;
+            align-items: center;
+            min-height: 44px;
+        }
     }
 
     &__item {
         position: relative;
-        border-radius: 8px;
+        border-radius: 14px;
+        cursor: pointer;
         transition: color .3s linear, box-shadow .3s linear, background-color .3s linear;
 
         @include r($xl) {
@@ -503,6 +510,17 @@ main {
             z-index: 5;
         }
     }
+
+    .footer__drop--active {
+        color: $blue;
+
+        &:not(:last-child):after {
+            filter: invert(29%) sepia(73%) saturate(3584%) hue-rotate(204deg) brightness(103%) contrast(106%);
+            transform: rotate(90deg);
+        }
+
+        transition: color .3s linear;
+    }
 }
 
 .contacts {
@@ -574,7 +592,7 @@ main {
     }
 
     @include r($bg) {
-        background-position: 0 213px;
+        background-position: 0 265px;
         background-size: cover;
     }
 
@@ -584,7 +602,7 @@ main {
 
     @include r($s) {
         background-size: contain;
-        background-position: 0 36%;
+        background-position: 0 37%;
     }
 
     @include r($xss) {
@@ -698,6 +716,7 @@ main {
         flex-direction: column;
         justify-content: center;
         backdrop-filter: blur(24px);
+        padding-left: 20px;
         max-width: 36%;
         width: 100%;
         padding-right: 32px;
@@ -711,6 +730,7 @@ main {
             max-width: 100%;
             text-align: center;
             padding-right: 0;
+            padding-left: 0;
         }
 
         @include r($m) {
@@ -856,7 +876,7 @@ main {
     &__checkmod {
         position: absolute;
         left: 0;
-        top: -12px;
+        top: 0;
         width: 24px;
         height: 24px;
         cursor: pointer;
@@ -1783,10 +1803,11 @@ main {
         & p {
             margin-top: 15px;
             padding: 0 20px 20px;
-            font-size: 24px;
+            font-size: 20px;
             line-height: 150%;
             color: $black;
             @extend %hind_madurai-400;
+            transition: all .3s linear;
         }
 
         @include r($m) {
@@ -1794,6 +1815,10 @@ main {
             font-size: 15px;
             line-height: 150%;
             width: 100%;
+
+            & p {
+                font-size: 15px;
+            }
         }
     }
 
@@ -2177,18 +2202,72 @@ main {
 
     &__text {
         margin-bottom: 24px;
+        max-width: 976px;
     }
 
     &__adress {
-        margin: 8px;
+        margin-bottom: 8px;
+        margin-left: 32px;
+        position: relative;
+        text-decoration: underline;
+        @extend %montserrat-700;
+        transition: color .3s linear;
+
+        &:hover {
+            color: $blue;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: 50%;
+            left: -32px;
+            transform: translateY(-50%);
+            background-image: url('../images/sprite.svg#map-c');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 50px;
+        }
     }
 
     &__phone {
+        @extend %montserrat-700;
+        font-size: 20px;
+        text-decoration: underline;
+        position: relative;
         display: block;
         margin-bottom: 32px;
+        margin-left: 32px;
+        transition: color .3s linear;
+
+        @include r($m) {
+            font-size: 16px;
+        }
+
+        &:hover {
+            color: $blue;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            top: 50%;
+            left: -32px;
+            transform: translateY(-50%);
+            background-image: url('../images/sprite.svg#ph-icon');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 50px;
+
+        }
     }
 
     &__map {
+        max-width: 1088px;
         width: 100%;
         border-radius: 16px;
     }
@@ -2224,12 +2303,88 @@ main {
 
     &__form {
         max-width: 479px;
+        width: 100%;
+        padding: 48px 80px 40px;
         background: rgba(255, 255, 255, 0.75);
         box-shadow: 24px 32px 56px rgba(0, 0, 0, 0.25);
         backdrop-filter: blur(24px);
         /* Note: backdrop-filter has minimal browser support */
 
         border-radius: 8px;
+
+        & label {
+            @extend %montserrat-500;
+            font-size: 15px;
+            line-height: 160%;
+        }
+    }
+
+    &__select-label {
+        @extend %montserrat-500;
+        font-size: 15px;
+        line-height: 160%;
+    }
+
+    &__select,
+    .select {
+        position: relative;
+        @extend %montserrat-600;
+        padding: 4px 0 4px 16px;
+        font-size: 16px;
+        line-height: 250%;
+        cursor: pointer;
+    }
+
+    &__select-wrapper {
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url(../images/sprite.svg#sel);
+            background-repeat: no-repeat;
+            background-position: 95% 20px;
+            background-size: 20px;
+            z-index: 5;
+        }
+    }
+
+    .contact__name,
+    .contact__email,
+    .contact__tele,
+    .contact__postcode,
+    .contact__promo,
+    .contact__select,
+    .select {
+        display: block;
+        width: 100%;
+        min-height: 48px;
+        margin-bottom: 24px;
+        border: none;
+        background: $white;
+        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        transition: all .3s linear;
+
+        &:focus {
+            outline: 1px solid #0075FF;
+            box-shadow: 0px 8px 48px rgba(41, 72, 132, 0.25);
+        }
+
+        &:hover {
+            box-shadow: 0px 8px 48px rgba(0, 0, 0, 0.25);
+        }
+
+        &:active {
+            box-shadow: 0px 8px 48px rgba(41, 72, 132, 0.25);
+        }
+    }
+
+    .contact__tele {
+        margin-bottom: 40px;
     }
 
 }
@@ -2521,8 +2676,9 @@ main {
 
 
         @include r($m) {
+            display: flex;
+            align-items: center;
             min-height: 44px;
-            display: block;
         }
 
     }
