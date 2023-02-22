@@ -2326,12 +2326,10 @@ main {
     &__form {
         max-width: 479px;
         width: 100%;
-        padding: 48px 80px 40px;
+        padding: 48px 24px 40px;
         background: rgba(255, 255, 255, 0.75);
         box-shadow: 24px 32px 56px rgba(0, 0, 0, 0.25);
         backdrop-filter: blur(24px);
-        /* Note: backdrop-filter has minimal browser support */
-
         border-radius: 8px;
 
         & label {
@@ -2374,12 +2372,114 @@ main {
         }
     }
 
+    &__reason-title {
+        display: block;
+        @extend %montserrat-700;
+        font-size: 16px;
+        line-height: 150%;
+        margin-bottom: 16px;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+
+    .contact__reason-radio1 {
+        left: 0;
+        top: 0;
+        width: 10px;
+        height: 10px;
+        opacity: 0;
+        position: absolute;
+
+
+        &:checked+.contact__check3::before {
+            opacity: 1;
+            background-color: $blue;
+        }
+
+    }
+
+    &__checkmodf {
+        position: relative;
+        padding-left: 32px;
+    }
+
+    &__check3 {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        background-color: $white;
+        border: 1px solid #EFEFEF;
+        box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.15));
+        transition: all .3s linear;
+
+        &:focus {
+
+            &::before {
+                border: 1px solid #E14F74;
+                box-shadow: 0px 8px 48px rgba(41, 72, 132, 0.25);
+            }
+        }
+
+        &:hover {
+
+            &::before {
+                box-shadow: 0px 8px 48px rgba(0, 0, 0, 0.25);
+            }
+        }
+
+        &:active {
+
+            &::before {
+                box-shadow: 0px 4px 8px rgba(41, 72, 132, 0.25);
+            }
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('../images/sprite.svg#v');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            border-radius: 8px;
+            background-color: transparent;
+            opacity: 0;
+            transition: all .3s linear;
+
+        }
+    }
+
+
+
+    &__item {
+        & label {
+            margin-left: 8px;
+            @extend %montserrat-600;
+            font-size: 15px;
+            line-height: 267%;
+        }
+    }
+
     .contact__name,
     .contact__email,
     .contact__tele,
     .contact__postcode,
     .contact__promo,
     .contact__select,
+    .contact__comments,
     .select {
         display: block;
         width: 100%;
@@ -2407,6 +2507,111 @@ main {
 
     .contact__tele {
         margin-bottom: 40px;
+    }
+
+    &__list-enquiry {
+        display: flex;
+        gap: 32px;
+        margin-bottom: 48px;
+    }
+
+    .contact__comments {
+        min-height: 192px;
+        margin-bottom: 48px;
+    }
+
+    &__comments-label {
+        color: $black;
+    }
+
+    .contact__label-1,
+    .contact__label-2,
+    .contact__label-3 {
+        @extend %montserrat-500;
+        font-size: 15px;
+        line-height: 160%;
+        position: relative;
+        padding-left: 30px;
+    }
+
+    &__checkboxs-list {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    &__checkbox1,
+    &__checkbox2,
+    &__checkbox3 {
+        left: 0;
+        top: 0;
+        width: 10px;
+        height: 10px;
+        opacity: 0;
+        position: absolute;
+
+
+        &:checked+.contact__checkmod1::before,
+        &:checked+.contact__checkmod2::before,
+        &:checked+.contact__checkmod3::before {
+            opacity: 1;
+            background-color: $blue;
+        }
+    }
+
+    &__checkmod1,
+    &__checkmod2,
+    &__checkmod3 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        background-color: $white;
+        border: 1px solid #EFEFEF;
+        box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        filter: drop-shadow(0px 4px 16px rgba(0, 0, 0, 0.15));
+        transition: all .3s linear;
+
+        &:focus {
+
+            &::before {
+                border: 1px solid #E14F74;
+                box-shadow: 0px 8px 48px rgba(41, 72, 132, 0.25);
+            }
+        }
+
+        &:hover {
+
+            &::before {
+                box-shadow: 0px 8px 48px rgba(0, 0, 0, 0.25);
+            }
+        }
+
+        &:active {
+
+            &::before {
+                box-shadow: 0px 4px 8px rgba(41, 72, 132, 0.25);
+            }
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('../images/sprite.svg#v');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            border-radius: 8px;
+            background-color: transparent;
+            opacity: 0;
+            transition: all .3s linear;
+
+        }
     }
 
 }
