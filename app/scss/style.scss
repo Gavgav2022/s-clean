@@ -693,15 +693,23 @@ main {
         @include r($s) {
             background-size: 311px;
             background-position-x: 50%;
-            background-position-y: 29%;
+            background-position-y: 31%;
         }
 
         @include r($xs) {
-            background-position-y: 33%;
+            background-position-y: 39%;
+        }
+
+        @include r($xs) {
+            background-position-y: 32%;
+        }
+
+        @include r($xsm) {
+            background-position-y: 36%;
         }
 
         @include r($xss) {
-            background-position-y: 37%;
+            background-position-y: 38%;
         }
 
         &--info {
@@ -1753,7 +1761,7 @@ main {
             content: "";
             position: absolute;
             opacity: 0;
-            width: 100%;
+            width: 40px;
             height: 100%;
             right: 0;
             top: 0;
@@ -1762,7 +1770,7 @@ main {
             background-image: url('../images/sprite.svg#plus');
             background-size: 40px;
             background-repeat: no-repeat;
-            background-position: right 50%;
+            background-position: center;
             transition: opasity .3s linear, background-color .3s linear, background-position .3s linear, background-size .3s linear, background-image .3s linear;
 
             @include r($m) {
@@ -1831,7 +1839,7 @@ main {
         .faq__question::before {
             background-image: url(../images/sprite.svg#minus);
             background-size: 20px;
-            background-position: 97% 50%;
+            background-position: center;
         }
     }
 
