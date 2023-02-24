@@ -2439,8 +2439,13 @@ main {
         line-height: 160%;
     }
 
+    .new-select {
+        height: 40px;
+    }
+
     &__select,
     .select {
+        min-height: 48px;
         position: absolute;
         left: 0;
         @extend %montserrat-600;

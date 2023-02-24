@@ -54,6 +54,13 @@ $(document).ready(function () {
 
 });
 
+$( '#form-book' ).on('submit', function(e) {
+  if($( 'input[class^="contact__option"]:disabled' ).length === 0) {
+     alert( 'Please, select a service' );
+     e.preventDefault();
+  }
+});
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
