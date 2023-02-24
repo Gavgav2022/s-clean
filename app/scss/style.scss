@@ -2344,6 +2344,31 @@ main {
         width: 100%;
         border-radius: 16px;
     }
+    &__map-inner {
+        position: relative;
+    }
+    &__map-wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transition: opacity .3s linear;
+
+        &:focus{
+            opacity: 0; 
+            z-index: -1;
+        }
+
+        &:hover {
+            opacity: 0; 
+            display: none;
+            z-index: -1;
+        }
+
+        &:active {
+            opacity: 0; 
+            z-index: -1;
+        }
+    }
 
     &__socials {
         max-height: 24px;
@@ -3196,6 +3221,12 @@ main {
         }
 
     }
+}
+
+.phpdebugbar,
+.phpdebugbar-openhandler,
+.phpdebugbar-openhandler-overlay {
+    display: none;
 }
 
 
