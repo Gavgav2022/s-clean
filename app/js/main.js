@@ -1,5 +1,4 @@
 
-
 $(document).ready(function () {
 
   $('.advantages__list').slick({
@@ -54,13 +53,6 @@ $(document).ready(function () {
 
 });
 
-$( '#form-book' ).on('submit', function(e) {
-  if($( 'input[class^="contact__option"]:disabled' ).length === 0) {
-     alert( 'Please, select a service' );
-     e.preventDefault();
-  }
-});
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -87,6 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const footerList5 = document.querySelector('.footer__list-5'); //мобильное меню
   const footerList6 = document.querySelector('.footer__list-6'); //мобильное меню
    //ищем как селектор ТЕГА
+
+ $( '#form-book' ).on('submit', function(e) {
+  if($( 'select[class^="contact__select"]' ).length > 0) {
+     alert( 'Oops! You not select friends.' );
+     e.preventDefault();
+  }
+});
 
   burger.addEventListener('click', () => {
     mobileMenu.classList.toggle('menu--active'); //когда меню открыто
