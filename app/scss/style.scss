@@ -1843,6 +1843,7 @@ main {
         @include r($s) {
             width: calc(100% - 80px);
             margin: 0 auto;
+            font-size: 15px;
             text-align: start;
         }
 
@@ -1945,8 +1946,12 @@ main {
         }
 
         100% {
-            font-size: 24px;
+            font-size: 15px;
             opacity: 1;
+
+            @include r($s) {
+                font-size: 15px;
+            }
         }
     }
 }
