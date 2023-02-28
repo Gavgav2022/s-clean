@@ -80,12 +80,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const footerList6 = document.querySelector('.footer__list-6'); //мобильное меню
    //ищем как селектор ТЕГА
 
- $( '#form-book' ).on('submit', function(e) {
-  if($( 'select[class^="contact__select"]' ).length > 0) {
-     alert( 'Oops! You not select friends.' );
-     e.preventDefault();
+
+   $( '#form-book' ).on('submit', function(e) {
+    function Validate() {
+      var contSel = document.getElementById("contact__select");
+      if (contSel.value == "") {
+          alert("Please select an option!");
+          return false;
+      }
+      return true;
   }
-});
+ });
+
 
   burger.addEventListener('click', () => {
     mobileMenu.classList.toggle('menu--active'); //когда меню открыто

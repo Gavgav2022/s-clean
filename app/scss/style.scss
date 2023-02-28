@@ -1128,6 +1128,14 @@ main {
         }
     }
 
+    &__select {
+        display: block !important;
+        width: 0 !important;
+        height: 0 !important;
+        opacity: 0 !important;
+        position: absolute !important;
+    }
+
     .new-select {
         position: relative;
         border-radius: 8px;
@@ -1197,6 +1205,8 @@ main {
         -o-transform: rotate(180deg);
         transform: rotate(180deg);
     }
+
+    
 }
 
 .section__title {
@@ -2551,6 +2561,12 @@ main {
         font-size: 16px;
         line-height: 250%;
         cursor: pointer;
+    }
+
+    &__select {
+        display: block !important;
+        opacity: 0;
+        pointer-events: none;
     }
 
     &__select-wrapper {
