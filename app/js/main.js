@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     _this.wrap('<div class="select"></div>');
     $('<div>', {
         class: 'new-select',
-        text: _this.children('option:disabled').text()
+        text: _this.children('option:selected').text()
     }).insertAfter(_this);
 
     const selectHead = _this.next('.new-select');
