@@ -618,7 +618,7 @@ main {
 
     &__services {
         @include r($s) {
-            background-image: none;
+            background-image: none !important;
         }
     }
 
