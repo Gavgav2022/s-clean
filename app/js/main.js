@@ -236,7 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
           /** Якщо status 200 або 201, форму відправлено успішно. Робимо reset та показуємо повідомлення про успіх */
           if (response.status === 200) {
-              form.reset();
+             const alrt = alert('Information sended');
+             console.log(alrt);
+             form.reset();
               // const successBlock = document.querySelector('.success');
               // successBlock.classList.remove('hidden');
               // setTimeout(() => successBlock.classList.add('hidden'), 1000);
