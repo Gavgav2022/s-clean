@@ -239,11 +239,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const element = document.getElementById('form-book__phone');
             console.log(element.length);
             if (element.length < 17) {
-              const alrt1 = alert('Information NOT sended');
+              const alrt1 = alert('Information NOT sent');
               console.log(element.length);
               console.log(alrt1);
             }
-             const alrt = alert('Information sended');
+             const alrt = alert('Your booking success');
              console.log(alrt);
              console.log(element);
              console.log(element.length);
