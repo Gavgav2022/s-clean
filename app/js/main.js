@@ -234,24 +234,21 @@ document.addEventListener('DOMContentLoaded', () => {
           /** Формуємо відповідь від серверу */
           const data = await response.json();
 
+          let data1 = document.querySelector('.form-book__phone').value;
+          console.log(data1.length);
+
           /** Якщо status 200 або 201, форму відправлено успішно. Робимо reset та показуємо повідомлення про успіх */
-          if (response.status === 200) {
-            const element = document.getElementById('form-book__phone');
-            console.log(element.length);
-            if (element.length < 17) {
-              const alrt1 = alert('Information NOT sent');
-              console.log(element.length);
-              console.log(alrt1);
-            }
-             const alrt = alert('Your booking success');
+          if (response.status === 200 && data1.length > 16) {
+             const alrt = alert('Your booking success!');
              console.log(alrt);
-             console.log(element);
-             console.log(element.length);
              form.reset();
               // const successBlock = document.querySelector('.success');
               // successBlock.classList.remove('hidden');
               // setTimeout(() => successBlock.classList.add('hidden'), 1000);
               return;
+          } else {
+            const alrt1 = alert('Please check your number!');
+             console.log(alrt1);
           }
 
           /** Для помилок валідації Laravel */
