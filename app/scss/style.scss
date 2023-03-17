@@ -225,22 +225,34 @@ main {
     }
 
     &__btn {
+        position: relative;
         padding: 8px 32px;
         @extend %montserrat-700;
         font-size: 20px;
         line-height: 200%;
         color: $blue;
         background-color: transparent;
-        outline: 2px solid $blue;
         border: 4px solid transparent;
+        outline: transparent;
         border-radius: 32px;
         transition: all .3s linear;
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 146px;
+            height: 64px;
+            top: -4px;
+            left: -4px;
+            border: 2px solid $blue; 
+            outline: transparent;
+            border-radius: 32px;
+            transition: all .3s linear;
+        }
 
 
         @include r($m) {
             display: none;
-            border: 4px solid transparent;
-            outline: 2px solid $blue;
         }
 
         &:focus {
@@ -250,7 +262,6 @@ main {
 
         &:hover {
             border: 4px solid $blue;
-            outline: 2px solid transparent;
             filter: drop-shadow(8px 8px 32px rgba(0, 117, 255, 0.5));
         }
 
@@ -3267,19 +3278,19 @@ main {
         border-radius: 32px;
         border: 4px solid transparent;
         outline: transparent;
-        transition: border .5s linear, filter .3s linear, color .3s linear, outline .3s linear;
+        transition: border .3s linear, filter .3s linear, color .3s linear, outline .3s linear;
 
         &::after {
             content: "";
             position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
+            width: 110px;
+            height: 48px;
+            top: -4px;
+            left: -4px;
             border: 2px solid $blue; 
             outline: transparent;
             border-radius: 32px;
-            transition: all .5s linear;
+            transition: all .3s linear;
         }
 
         &:focus {
