@@ -240,7 +240,7 @@ main {
         &::after {
             content: "";
             position: absolute;
-            width: 146px;
+            width: 177px;
             height: 64px;
             top: -4px;
             left: -4px;
@@ -248,6 +248,10 @@ main {
             outline: transparent;
             border-radius: 32px;
             transition: all .3s linear;
+            @include r($xxl) {
+                width: 146px;
+            }
+
         }
 
 
@@ -261,6 +265,7 @@ main {
         }
 
         &:hover {
+            color: $blue;
             border: 4px solid $blue;
             filter: drop-shadow(8px 8px 32px rgba(0, 117, 255, 0.5));
         }
@@ -441,6 +446,7 @@ main {
         }
 
         .menu__sub-item {
+            max-width: 270px;
             position: absolute;
             transform: scale(0);
             display: flex;
