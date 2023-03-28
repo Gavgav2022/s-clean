@@ -2,23 +2,23 @@
 
     $data = json_decode(file_get_contents('php://input'), true);
 
-    $adminEmail = 'smctest2023@gmail.com';
+    $adminEmail = 'dimagysev9595@gmail.com';
     $errors = [];
     $message = '';
-    $subject = 'Feedback form from site Smart-Clean';
+    $subject = 'Feedback form from site';
 
 
     foreach ((array) $data as $field => $value) {
         if (!$value) {
             $errors[$field] = "Поле $field обов'язкове для заповнення";
         } else {
-            $message .= sprintf( '<p><b>%s:</b> %s</p>', $field, $value);
+            $message .= sprintf('%s: %s', $field, $value);
         }
     }
 
     $headers = [
         'MIME-Version: 1.0',
-        "Content-Type: text/html; charset=utf-8",
+        'Content-type: text/html; charset=UTF-8',
         'To: '. 'Admin <' . $adminEmail . '>',
         'From: ' . '<' . $data['email'] . '>',
     ];
@@ -40,4 +40,3 @@
         http_response_code(200);
         echo json_encode($data);
     }
-
