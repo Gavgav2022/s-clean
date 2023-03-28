@@ -454,6 +454,7 @@ main {
             transform: scale(0);
             display: flex;
             flex-direction: column;
+            gap: 20px;
             width: max-content;
             justify-content: space-between;
             top: 0;
@@ -463,7 +464,7 @@ main {
             color: transparent;
             @extend %montserrat-600;
             left: 50%;
-            padding: 40px 27px;
+            padding: 20px 27px;
             border-radius: 50%;
             transition: all .3s linear;
         }
